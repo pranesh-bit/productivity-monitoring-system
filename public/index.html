@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusFlow - Real Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-card">
+            <h2>FocusFlow Tracker</h2>
+            <p>Login to view your activity</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" class="form-control" value="admin@test.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-control" value="password">
+                </div>
+                <div id="login-error" class="error-msg"></div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- APP CONTAINER -->
+    <div id="app-container" class="app-container">
+        <header class="mobile-header">
+            <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+            <div class="mobile-logo">⚡ FocusFlow</div>
+        </header>
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <nav class="sidebar" id="sidebar">
+            <div class="logo">⚡ <span>FocusFlow</span></div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#dashboard" class="nav-link active" data-page="dashboard"><span class="nav-icon">📊</span> <span class="nav-text">Dashboard</span></a></li>
+                <li class="nav-item"><a href="#reports" class="nav-link" data-page="reports"><span class="nav-icon">📄</span> <span class="nav-text">Detailed Logs</span></a></li>
+            </ul>
+            <div class="user-info">
+                <div class="user-avatar">JD</div>
+                <div class="user-details">
+                    <div class="user-name">User</div>
+                    <div class="user-role" id="logout-btn">Logout</div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <!-- PAGE 1: DASHBOARD -->
+            <div id="page-dashboard" class="page-section active">
+                <div class="page-header">
+                    <h1 class="page-title">Live Activity</h1>
+                    <p class="page-subtitle">Data updates automatically via tracker script</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="card stat-card">
+                        <div class="stat-value" id="stat-total">0</div>
+                        <div class="stat-label">Total Logs</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-value" style="color: var(--success);" id="stat-productive">0m</div>
+                        <div class="stat-label">Total Time</div>
+                    </div>
+                    <!-- UPDATED BUTTONS AREA -->
+                    <div class="card stat-card">
+                        <button class="btn" style="background: var(--primary); color: white; padding: 10px; margin-bottom: 10px;" id="refresh-btn">🔄 Refresh</button>
+                        <button class="btn" style="background: var(--danger); color: white; padding: 10px;" id="clear-btn">🗑️ Delete All</button>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="card">
+                        <div class="card-header">Activity Distribution</div>
+                        <div class="chart-container"><canvas id="pieChart"></canvas></div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Time Per Category (Minutes)</div>
+                        <div class="chart-container"><canvas id="barChart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAGE 2: REPORTS -->
+            <div id="page-reports" class="page-section">
+                <div class="page-header">
+                    <h1 class="page-title">Detailed Logs</h1>
+                    <p class="page-subtitle">History of tracked applications</p>
+                </div>
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead><tr><th>App</th><th>Title</th><th>Category</th><th>Duration</th><th>Time</th></tr></thead>
+                            <tbody id="logs-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
